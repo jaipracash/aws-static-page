@@ -9,7 +9,6 @@ jobs:
 deploy:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Deploy to EC2
     uses: appleboy/ssh-action@master
@@ -33,4 +32,4 @@ steps:
         sudo cp -r dist/* /usr/share/nginx/html/
 
         sudo systemctl restart nginx
-```
+
