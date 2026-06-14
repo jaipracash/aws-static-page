@@ -1,26 +1,36 @@
 name: Deploy to EC2
 
 on:
-  push:
-    branches:
-      - main
+push:
+branches:
+- main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+deploy:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd /root/aws-static-page
-            git pull origin main
-            npm install
-            npm run build
-            sudo rm -rf /usr/share/nginx/html/*
-            sudo cp -r dist/* /usr/share/nginx/html/
-            sudo systemctl restart nginx
+```
+steps:
+  - name: Deploy to EC2
+    uses: appleboy/ssh-action@master
+
+    with:
+      host: ${{ secrets.EC2_HOST }}
+      username: ${{ secrets.EC2_USER }}
+      key: ${{ secrets.EC2_SSH_KEY }}
+
+      script: |
+        cd /root/aws-static-page
+
+        git pull origin main
+
+        npm install
+
+        npm run build
+
+        sudo rm -rf /usr/share/nginx/html/*
+
+        sudo cp -r dist/* /usr/share/nginx/html/
+
+        sudo systemctl restart nginx
+```
