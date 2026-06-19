@@ -94,7 +94,7 @@ function App() {
 
       {/* Simple Footer */}
       <footer style={{ padding: '28px', textAlign: 'center', borderTop: '1px solid var(--border-color)', fontSize: '13px', color: 'var(--text-muted)', zIndex: 10 }}>
-        © {new Date().getFullYear()} Jaiprakash • Cloud Engineer & Web Developer Portfolio
+        © {new Date().getFullYear()} Jaiprakash
       </footer>
 
     </div>
