@@ -18,10 +18,22 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            nvm use 22
+
             cd /home/ec2-user/aws-static-page
-            git pull origin main
-            npm install
+
+            git fetch origin
+            git reset --hard origin/main
+
+            npm ci
             npm run build
+
             sudo rm -rf /usr/share/nginx/html/*
             sudo cp -r dist/* /usr/share/nginx/html/
-            sudo systemctl restart nginx
+
+            sudo nginx -t
+            sudo systemctl reload nginx
